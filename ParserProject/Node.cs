@@ -45,7 +45,8 @@ namespace ParserProject
         public List<Node> right;
         public Node left;
         public List<Node> middle;
-
+        public int xleftCorner;
+        public int yleftCorner;
         //constructor for terminal nodes(right and left and middle are all = null)
         public Node(string value)
         {
