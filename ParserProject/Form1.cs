@@ -231,10 +231,6 @@ namespace ParserProject
         {
             var result = new Bitmap(sizeWidth, sizeHeight);
             Graphics g = Graphics.FromImage(result);
-            //g.DrawString(str, font, Brushes.Black, lSize.Width - _nodeBg.Width / 2 + _freeSpace.Width / 2 + (2 + (str.Length == 1 ? 10 : str.Length == 2 ? 5 : 0)) * Coef, _nodeBg.Height / 2f - 12 * Coef);
-            List<Point> pointsInSameLevel0 = new List<Point>();
-            List<Point> pointsInSameLevel1 = new List<Point>();
-            List<Point> pointsInSameLevel2 = new List<Point>();
             int a = 0;
             // Level 0
             foreach (Node node in nodes)
@@ -243,13 +239,6 @@ namespace ParserProject
                 int _child = 0;
                 _child = node.CountChildren() - 1;
                 var rcl = new Rectangle(globalX, levelY0, recWidth, recHeight);
-                if (a == 1)
-                    pointsInSameLevel0.Add(new Point(globalX + recWidth, levelY0 + recHeight / 2));
-                else
-                {
-                    pointsInSameLevel0.Add(new Point(globalX, levelY0 + recHeight / 2));
-                    pointsInSameLevel0.Add(new Point(globalX + recWidth, levelY0 + recHeight / 2));
-                }
                 g.DrawRectangle(new Pen(Color.Black, 1.2f), rcl);
                 node.xleftCorner = globalX;
                 node.yleftCorner = levelY0;
@@ -268,7 +257,6 @@ namespace ParserProject
                         localX = 10;
 
                     var rcl2 = new Rectangle(localX, levelY1, recWidth, recHeight);
-                    //pointsInSameLevel1.Add(new Point(localX+recWidth, levelY1+recHeight/2));
                     g.DrawRectangle(new Pen(Color.Black, 1.2f), rcl2);
                     node.left.xleftCorner = localX;
                     node.left.yleftCorner = levelY1;
@@ -283,7 +271,6 @@ namespace ParserProject
                         recDrawRight(g, node.left.right);
 
                     globalX += 100;
-                    //g.DrawLine(new Pen(Color.Black, 2f), localX+recWidth, levelY1 + recHeight / 2, globalX,levelY1 + recHeight / 2);
                 }
                 // Level 1 Middle
                 if (node.middle != null)
@@ -321,7 +308,6 @@ namespace ParserProject
                         else
                             localX = 10;
                         var rcl4 = new Rectangle(localX, levelY1, recWidth, recHeight);
-                        pointsInSameLevel1.Add(new Point(localX, levelY1 + recHeight / 2));
                         g.DrawRectangle(new Pen(Color.Black, 1.2f), rcl4);
                         str = rightNode1.value;
                         rightNode1.xleftCorner = localX;
@@ -332,25 +318,10 @@ namespace ParserProject
                         recDrawMiddle(g, rightNode1.middle);
                         recDrawRight(g, rightNode1.right);
                         globalX += 150;
-                        //g.DrawLine(new Pen(Color.Black, 2f), localX + recWidth, levelY1 + recHeight / 2, globalX, levelY2 + recHeight / 2);
                     }
                 }
                 globalX += 200;
             }
-            //for (int i = 0; i < pointsInSameLevel0.Count - 1; i++)
-            //{
-            //    if (i % 2 == 1) continue;
-            //    Point currentPoint = pointsInSameLevel0[i];
-            //    Point nextPoint = pointsInSameLevel0[i + 1];
-            //    g.DrawLine(new Pen(Color.Black, 2f), currentPoint, nextPoint);
-            //}
-            //for (int i = 0; i < pointsInSameLevel1.Count - 1; i++)
-            //{
-            //    if (i % 2 == 0) continue;
-            //    Point currentPoint = pointsInSameLevel1[i];
-            //    Point nextPoint = pointsInSameLevel1[i + 1];
-            //    g.DrawLine(new Pen(Color.Black, 2f), currentPoint, nextPoint);
-            //}
             DrawLines(g, nodes);
             return result;
         }
@@ -365,16 +336,6 @@ namespace ParserProject
 
             foreach (Node node in nodes)
             {
-                // in our example: read, if
-                //if (node.left != null)
-                //{
-                //    // op(<)
-                //    parentNode = node;
-                //    currentNode = node.left;
-                //    Point startPoint = new Point(parentNode.xleftCorner + recWidth / 2, parentNode.yleftCorner + recHeight);
-                //    Point endPoint = new Point(currentNode.xleftCorner + recWidth /2, currentNode.yleftCorner);
-                //    g.DrawLine(new Pen(Color.Black, 2f), startPoint, endPoint);
-                //}
                 DrawChildrenLines(g, node);
             }
             // Same level
@@ -434,7 +395,6 @@ namespace ParserProject
                 localX2 = globalX - 150;
             else
                 localX2 = 10;
-            //g.DrawLine(new Pen(Color.Black, 2f), localX2+recWidth/2, levelY2 , globalX-recWidth/2, levelY1+recHeight);
             var rcl2l = new Rectangle(localX2, levelY2, recWidth, recHeight);
             g.DrawRectangle(new Pen(Color.Black, 1.2f), rcl2l);
             node.xleftCorner = localX2;
@@ -460,7 +420,6 @@ namespace ParserProject
                     localX2 = globalX;
                 else
                     localX2 = 10;
-                //g.DrawLine(new Pen(Color.Black, 2f), localX2 + recWidth / 2, levelY2, globalX - recWidth / 2, levelY1 + recHeight);
                 var rcl3l = new Rectangle(localX2, levelY2, recWidth, recHeight);
                 g.DrawRectangle(new Pen(Color.Black, 1.2f), rcl3l);
                 node.xleftCorner = localX2;
@@ -483,7 +442,6 @@ namespace ParserProject
                     localX2 = globalX;
                 else
                     localX2 = 10;
-                //g.DrawLine(new Pen(Color.Black, 2f), localX2 + recWidth / 2, levelY2, localX2 + recWidth/2, levelY1 + recHeight);
                 var rcl3l = new Rectangle(localX2, levelY2, recWidth, recHeight);
                 g.DrawRectangle(new Pen(Color.Black, 1.2f), rcl3l);
                 node.xleftCorner = localX2;
