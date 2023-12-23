@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Msagl.Routing.Rectilinear.Nudging;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -36,110 +37,68 @@ namespace ParserProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //    Console.WriteLine("START");
-            //    var tokens = new List<(string, TokenType)>
-            //{
-            //    ("x", TokenType.IDENTIFIER),
-            //    (":=", TokenType.ASSIGN),
-            //    ("5", TokenType.NUMBER),
-            //    (";", TokenType.SEMICOLON),
-            //    ("IF", TokenType.IF),
-            //    ("x", TokenType.IDENTIFIER),
-            //    ("<", TokenType.LESSTHAN),
-            //    ("10", TokenType.NUMBER),
-            //    ("THEN", TokenType.THEN),
-            //    ("WRITE", TokenType.WRITE),
-            //    ("x", TokenType.IDENTIFIER),
-            //    (";", TokenType.SEMICOLON),
-            //    ("END", TokenType.END),
-            //    (";", TokenType.SEMICOLON)
-            //    // Add more tokens as needed
-            //};
-
-            //    Parser parser = new Parser(tokens);
-            //    parser.Parse();
-            //    Console.WriteLine("FINISH");
-
-            // Create the root node
-            TreeNode rootNode = new TreeNode("Root");
-
-            // Create three children nodes
-            TreeNode child1 = new TreeNode("Child 1");
-            TreeNode child2 = new TreeNode("Child 2");
-            TreeNode child3 = new TreeNode("Child 3");
-
-            // Add children to the root node
-            rootNode.Nodes.Add(child1);
-            rootNode.Nodes.Add(child2);
-            rootNode.Nodes.Add(child3);
-            treeView1.Nodes.Add(rootNode);
-
-            Bitmap bmp = new Bitmap(500, 500);
-            using (Graphics g = Graphics.FromImage(bmp))
-            {
-                g.FillRectangle(Brushes.Green, 0, 0, 10, 10);
-                g.DrawEllipse(Pens.Black, 10, 10, 100, 100);
-            }
-
-            pictureBox1.Image = bmp;
+            
         }
 
         private void btn_showForm2_Click(object sender, EventArgs e)
         {
-            //if (frm.IsDisposed) frm = new Form2(this);
-            //frm.Show();
-            //Node childLeft = new Node("13");
-            //Node childRight = new Node("234");
-            //Node childMiddle = new Node("+");
-            //Node root = new Node("assign", childLeft, childMiddle, childRight,null);
-            //Console.WriteLine("from form 2");
-            //Node childLeft2 = new Node("stmt");
-            //Node childRight2 = new Node("()");
-            //Node childMiddle2 = new Node("else");
-            //Node root2 = new Node("if", childLeft2, childRight2,null);
-            //Node root3 = new Node("Test", root, root2,null);
-            //drawTest(root);
-            //drawTest(root2);
-            //drawTest(root3);
             globalX = 0;
-            List<string[]> tokens = new List<string[]>();
+            string input = inputTextBox.Text;
+            List<string[]> tokens = inputCheck(input);
+            try
+            {
+                foreach (string[] pair in tokens)
+                {
+                    outputTextBox.Text += pair[0] + pair[1] + '\n';
+                }
+
+            }
+            catch (Exception ex)
+            {
+                outputTextBox.Text = "Wrong Input";
+            }
+            //List<string[]> tokens = new List<string[]>();
 
             // Add tokens to the list with switched positions
-            tokens.Add(new string[] { "read", "READ" });
-            tokens.Add(new string[] { "x", "IDENTIFIER" });
-            tokens.Add(new string[] { ";", "SEMICOLON" });
-            tokens.Add(new string[] { "if", "IF" });
-            tokens.Add(new string[] { "0", "NUMBER" });
-            tokens.Add(new string[] { "<", "LESSTHAN" });
-            tokens.Add(new string[] { "x", "IDENTIFIER" });
-            tokens.Add(new string[] { "then", "THEN" });
-            tokens.Add(new string[] { "fact", "IDENTIFIER" });
-            tokens.Add(new string[] { ":=", "ASSIGN" });
-            tokens.Add(new string[] { "1", "NUMBER" });
-            tokens.Add(new string[] { ";", "SEMICOLON" });
-            tokens.Add(new string[] { "repeat", "REPEAT" });
-            tokens.Add(new string[] { "fact", "IDENTIFIER" });
-            tokens.Add(new string[] { ":=", "ASSIGN" });
-            tokens.Add(new string[] { "fact", "IDENTIFIER" });
-            tokens.Add(new string[] { "*", "MULT" });
-            tokens.Add(new string[] { "x", "IDENTIFIER" });
-            tokens.Add(new string[] { ";", "SEMICOLON" });
-            tokens.Add(new string[] { "x", "IDENTIFIER" });
-            tokens.Add(new string[] { ":=", "ASSIGN" });
-            tokens.Add(new string[] { "x", "IDENTIFIER" });
-            tokens.Add(new string[] { "-", "MINUS" });
-            tokens.Add(new string[] { "1", "NUMBER" });
-            tokens.Add(new string[] { "until", "UNTIL" });
-            tokens.Add(new string[] { "x", "IDENTIFIER" });
-            tokens.Add(new string[] { "=", "EQUAL" });
-            tokens.Add(new string[] { "0", "NUMBER" });
-            tokens.Add(new string[] { ";", "SEMICOLON" });
-            tokens.Add(new string[] { "write", "WRITE" });
-            tokens.Add(new string[] { "fact", "IDENTIFIER" });
+
+            //tokens.Add(new string[] { "x", "IDENTIFIER" });
+            //tokens.Add(new string[] { ":=", "ASSIGN" });
+            //tokens.Add(new string[] { "1", "NUMBER" });
+
+            //tokens.Add(new string[] { "read", "READ" });
+            //tokens.Add(new string[] { "x", "IDENTIFIER" });
+            //tokens.Add(new string[] { ";", "SEMICOLON" });
+            //tokens.Add(new string[] { "if", "IF" });
+            //tokens.Add(new string[] { "0", "NUMBER" });
+            //tokens.Add(new string[] { "<", "LESSTHAN" });
+            //tokens.Add(new string[] { "x", "IDENTIFIER" });
+            //tokens.Add(new string[] { "then", "THEN" });
+            //tokens.Add(new string[] { "fact", "IDENTIFIER" });
+            //tokens.Add(new string[] { ":=", "ASSIGN" });
+            //tokens.Add(new string[] { "1", "NUMBER" });
+            //tokens.Add(new string[] { ";", "SEMICOLON" });
+            //tokens.Add(new string[] { "repeat", "REPEAT" });
+            //tokens.Add(new string[] { "fact", "IDENTIFIER" });
+            //tokens.Add(new string[] { ":=", "ASSIGN" });
+            //tokens.Add(new string[] { "fact", "IDENTIFIER" });
+            //tokens.Add(new string[] { "*", "MULT" });
+            //tokens.Add(new string[] { "x", "IDENTIFIER" });
+            //tokens.Add(new string[] { ";", "SEMICOLON" });
+            //tokens.Add(new string[] { "x", "IDENTIFIER" });
+            //tokens.Add(new string[] { ":=", "ASSIGN" });
+            //tokens.Add(new string[] { "x", "IDENTIFIER" });
+            //tokens.Add(new string[] { "-", "MINUS" });
+            //tokens.Add(new string[] { "1", "NUMBER" });
+            //tokens.Add(new string[] { "until", "UNTIL" });
+            //tokens.Add(new string[] { "x", "IDENTIFIER" });
+            //tokens.Add(new string[] { "=", "EQUAL" });
+            //tokens.Add(new string[] { "0", "NUMBER" });
+            //tokens.Add(new string[] { ";", "SEMICOLON" });
+            //tokens.Add(new string[] { "write", "WRITE" });
+            //tokens.Add(new string[] { "fact", "IDENTIFIER" });
             tokens.Add(new string[] { "end", "END" });
 
-
-
+            //tokens.Add(new string[] { "if", "IF" });
             Parser parser = new Parser(tokens);
             List<Node> nodes = null;
 
@@ -164,11 +123,11 @@ namespace ParserProject
                     {
                         foreach (Node middle in node.middle)
                         {
-                            Console.WriteLine("Children Middle; " + middle.value);
-                            foreach (Node x in middle.middle)
-                            {
-                                Console.WriteLine("Children Middle; " + x.value);
-                            }
+                            //Console.WriteLine("Children Middle; " + middle.value);
+                            //foreach (Node x in middle.middle)
+                            //{
+                            //    Console.WriteLine("Children Middle; " + x.value);
+                            //}
                         }
                     }
                     if (node.left != null)
@@ -233,6 +192,7 @@ namespace ParserProject
             Graphics g = Graphics.FromImage(result);
             int a = 0;
             // Level 0
+            if (nodes == null) return null;
             foreach (Node node in nodes)
             {
                 a++;
@@ -533,6 +493,43 @@ namespace ParserProject
                 g.DrawString(str, font, Brushes.Black, localX2 + 5, levelY4 + 5);
                
                 globalX += 200;
+            }
+        }
+        public List<string[]> inputCheck(string input)
+        {
+            List<string[]> tokens = new List<string[]>();
+
+            input = input.Replace(" ", "");
+            // TODO remove last enter if exists
+            if (input[input.Length - 1] == '\n') input = input.Remove(input.Length-1);
+            // Split the input string into individual tokens
+            string[] tokenPairs = input.Split('\n');
+            //Console.WriteLine(tokenPairs);
+            // Process each token pair and add to the list
+            foreach (string pair in tokenPairs)
+            {
+                //Console.WriteLine(pair);
+                string[] token = pair.Split(',');
+                tokens.Add(token);
+            }
+
+            return tokens;
+        }
+
+        private void tstbtn_Click(object sender, EventArgs e)
+        {
+            string input = inputTextBox.Text;
+            outputTextBox.Text = "";
+            List<string[]> tokens = inputCheck(input);
+            try
+            {
+                foreach (string[] pair in tokens)
+                {
+                    outputTextBox.Text += pair[0] + pair[1] + '\n';
+                }
+            }
+            catch(Exception ex){
+                outputTextBox.Text = "Wrong Input";
             }
         }
     }

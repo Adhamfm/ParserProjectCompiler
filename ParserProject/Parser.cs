@@ -260,7 +260,7 @@ namespace ParserProject
             }
             else
             {
-                throw new Exception("Expected identifier");
+                throw new Exception("Expected identifier "+ tokens[currentIndex][0]);
             }
         }
 
